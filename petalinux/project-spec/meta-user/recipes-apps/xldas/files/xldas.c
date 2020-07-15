@@ -24,6 +24,9 @@
 #include <unistd.h>
 #include <poll.h>
 #include <argp.h>
+#include <sys/sendfile.h>
+
+
 
 #define RD_PATH "/dev/axidmard"
 #define WR_PATH "/dev/axidmawr"
@@ -95,7 +98,7 @@ void arguments_print(struct arguments_t* arguments) {
 static error_t parse_opt(int key, char *arg, struct argp_state *state) {
 	/* Get the input argument from argp_parse, which we
 	 know is a pointer to our arguments structure. */
-	struct arguments_t *arguments = state->input;
+  struct arguments_t *arguments = (struct arguments_t *)state->input;
 
 	switch (key) {
 		case 'p':
@@ -190,8 +193,8 @@ int main(int argc, char *argv[]) {
 	bzero((char *) &serv_addr, sizeof(serv_addr));
 
 	/*allow reuse the socket binding in case of restart after fail*/
-	int true = 1;
-	setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &true, sizeof(true));
+	int itrue = 1;
+	setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &itrue, sizeof(itrue));
 
 	//portno = atoi(argv[1]);
 	serv_addr.sin_family = AF_INET;

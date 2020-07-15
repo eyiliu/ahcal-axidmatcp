@@ -69,7 +69,7 @@ void arguments_print(struct arguments_t* arguments) {
 static error_t parse_opt(int key, char *arg, struct argp_state *state) {
 	/* Get the input argument from argp_parse, which we
 	 know is a pointer to our arguments structure. */
-	struct arguments_t *arguments = state->input;
+	struct arguments_t *arguments =  ( struct arguments_t *) state->input;
 
 	switch (key) {
 		case 'p':
@@ -79,7 +79,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
 			arguments->naggle = atoi(arg);
 			break;
 		case 'h':
-			arguments->naggle = arg;
+			arguments->naggle =  ( long int) arg;
 			break;
 		case 'd':
 			arguments->debug_level = atoi(arg);
@@ -162,7 +162,7 @@ int main(int argc, char *argv[]) {
 #define PORT 3490    /* the port client will be connecting to */
 #define MAXDATASIZE 100 /* max number of bytes we can get at once */
 
-int delete(int argc, char *argv[])
+int cdelete(int argc, char *argv[])
 {
 	int sockfd, numbytes;
 	char buf[MAXDATASIZE];

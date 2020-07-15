@@ -148,6 +148,14 @@
 
 
 
+enum xdma_ip_type {
+		   XDMA_TYPE_AXIDMA = 0,
+		   XDMA_TYPE_CDMA,
+		   XDMA_TYPE_VDMA,
+};
+
+
+
 /**
  * struct xilinx_vdma_desc_hw - Hardware Descriptor
  * @next_desc: Next Descriptor Pointer @0x00
